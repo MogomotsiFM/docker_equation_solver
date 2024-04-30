@@ -1,3 +1,7 @@
+env:
+  variables:
+    - IMAGE_TAG: "test"
+
 pre_build:
   commands:
     - echo Logging in to Amazon ECR...
@@ -7,11 +11,11 @@ build:
   commands:
     - echo Build started on `date`
     - echo Building the Docker image...
-    - docker build -t equation_solver:$LATEST .
-    - docker tag equation_solver:$LATEST $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$LATEST
+    - docker build -t equation_solver:$IMAGE_TAG .
+    - docker tag equation_solver:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
 post_build:
   commands:
   - echo Build completed on `date`
   - echo Pushing the Docker image to ECR...
-  - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$LATEST
+  - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
 
