@@ -1,19 +1,19 @@
 version: 0.2
 
-pre_build:
-  commands:
-    - echo Logging in to Amazon ECR...
-    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login ==username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login ==username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver
 
-build:
-  commands:
-    - echo Build started on `date`
-    - echo Building the Docker image...
-    - docker build -t equation_solver:$IMAGE_TAG .
-    - docker tag equation_solver:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
-post_build:
-  commands:
-  - echo Build completed on `date`
-  - echo Pushing the Docker image to ECR...
-  - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
-
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t equation_solver:$IMAGE_TAG .
+      - docker tag equation_solver:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
+  post_build:
+    commands:
+    - echo Build completed on `date`
+    - echo Pushing the Docker image to ECR...
+    - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
