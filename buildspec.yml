@@ -1,6 +1,4 @@
-env:
-  variables:
-    - IMAGE_TAG: "test"
+version: 0.2
 
 pre_build:
   commands:
