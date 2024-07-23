@@ -3,10 +3,15 @@ import equation_solver
 
 def handler(event, context):
     print(event)
+
+    # Problem statement is a query string parameter.
     eqn = event.setdefault("queryStringParameters", None)
     
     if eqn is None:
-        q = '(x-1)(4x+3)+105x-9=-12(-12x+10)+12'
+        # Problem statement is in the body.
+        q = event.setdefault("eqn", None)
+        if q is None:
+            q = '(x-1)(4x+3)+105x-9=-12(-12x+10)+12'
     else:
         print("Equation", event["queryStringParameters"])
     
@@ -25,14 +30,14 @@ def handler(event, context):
             "isBase64Encoded": False,
             "headers": {
                 "Content-Type": "text/html"
-            }   
+            }
         }
 
 
 def html(steps):
     """
-        Using chr(10) in place of '\n'. Otherwise this fails in python 11. 
-        I can't use python 12 because its AWS Lambda base image does not 
+        Using chr(10) in place of '\n'. Otherwise this fails in Python 11. 
+        I can't use Python 12 because its AWS Lambda base image does not 
         include YUM. YUM is used to install git so that we can clone the 
         equation solver app. 
     """
