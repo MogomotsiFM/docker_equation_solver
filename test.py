@@ -2,8 +2,8 @@ import requests
 import json
 
 """
-Build the Docker image: docker build --platform linux/amd64 -t docker-image .
-Run image locally: docker run --platform linux/amd64 -p 9000:8080 docker-image
+Build the Docker image: docker build --platform linux/amd64 -t docker-image . --target production
+Run image locally: docker run --platform linux/amd64 -p 9000:8080 docker-image 
 
 Test: run this script to test the running image
 """

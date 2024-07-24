@@ -10,8 +10,13 @@ phases:
     on-failure: ABORT
     commands:
       - echo Build started on `date`
-      - echo Building the Docker image...
-      - docker build -t equation_solver:$IMAGE_TAG .
+      - echo Building the Docker image and unit tests at the same time...
+      - docker build  -t equation_solver:$IMAGE_TAG . --target reporter -o ./reports
+      - pwd
+      - echo Contents of current directory
+      - ls
+      - echo Building the Docker image that will be pushed to ECR...
+      - docker build  -t equation_solver:${IMAGE_TAG} . --target production
       - docker tag equation_solver:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
   post_build:
     on-failure: ABORT
@@ -19,3 +24,13 @@ phases:
     - echo Build completed on `date`
     - echo Pushing the Docker image to ECR...
     - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
+
+artifacts:
+  files:
+    - code_coverage.zip
+    - unit_tests.xml
+  name: EquationSolverTestReports
+  discard-paths: no
+  base-directory: "./reports"
+  s3-prefix: TestReports
+   
