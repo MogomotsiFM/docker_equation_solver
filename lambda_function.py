@@ -1,23 +1,21 @@
 import json
-import sys
 import equation_solver
 
 def handler(event, context):
     print(event)
 
-    # Problem statement is a query string parameter.
-    eqn = event.setdefault("queryStringParameters", None)
-    
-    if eqn is None:
-        # Problem statement is in the body.
-        q = event.setdefault("eqn", None)
-        if q is None:
-            q = '(x-1)(4x+3)+105x-9=-12(-12x+10)+12'
-    else:
-        print("Equation", event["queryStringParameters"])
-    
+    try:
         q = event["queryStringParameters"]["eqn"]
-
+    except Exception as e:
+        return {
+            "statusCode": 400,
+            "body": "The linear equation should be a request parameter, i.e.: /?eqn='x^2+1=2'",
+            "isBase64Encoded": False,
+            "headers": {
+                "Content-Type": "text/html"
+            }
+        }
+    
     print(f"Question: {q}")
 
     try:
