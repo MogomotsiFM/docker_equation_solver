@@ -4,17 +4,8 @@ import equation_solver
 def handler(event, context):
     print(event)
 
-    try:
-        q = event["queryStringParameters"]["eqn"]
-    except Exception as e:
-        return {
-            "statusCode": 400,
-            "body": "The linear equation should be a request parameter, i.e.: /?eqn='x^2+1=2'",
-            "isBase64Encoded": False,
-            "headers": {
-                "Content-Type": "text/html"
-            }
-        }
+    # Only the equation should be in the body
+    q = event["body"]
     
     print(f"Question: {q}")
 
