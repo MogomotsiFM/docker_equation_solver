@@ -1,5 +1,10 @@
 version: 0.2
 
+env:
+  variables:
+    LambdaFunctionName: linear-equation_solver_demo
+    LambdaFunctionAlias: dev
+
 phases:
   pre_build:
     commands:
@@ -24,13 +29,33 @@ phases:
     - echo Build completed on `date`
     - echo Pushing the Docker image to ECR...
     - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/equation_solver:$IMAGE_TAG
+    - python create_appspec.py $LambdaFunctionName $LambdaFunctionAlias "AppSpec.yaml" $AWS_ACCOUNT_ID $AWS_DEFAULT_REGION $IMAGE_TAG 
+    - ls
+
 
 artifacts:
   files:
-    - code_coverage.zip
-    - unit_tests.xml
+    #- "**/*"
+    #- code_coverage.zip
+    #- unit_tests.xml
+    - AppSpec.yaml
   name: EquationSolverTestReports
   discard-paths: no
-  base-directory: "./reports"
-  s3-prefix: TestReports
-   
+  base-directory: "./"
+  #s3-prefix: portfolio-cloudformation-templates/TestReports
+  secondary-artifacts:
+    AppSpecFile:
+      files:
+        - AppSpec.yaml
+      name: AppSpecFile
+      discard-paths: no
+      base-directory: "./"
+    TestReports:
+      files:
+        - code_coverage.zip
+        - unit_tests.xml
+      name: TestReports
+      discard-paths: no
+      base-directory: "./reports"
+
+

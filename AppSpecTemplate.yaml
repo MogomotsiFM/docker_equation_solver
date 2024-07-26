@@ -1,0 +1,12 @@
+version: 0.0
+
+resources:
+  - LambdaFunctionLogicalId:
+      type: "AWS::Lambda::Function"
+      properties:
+        name: LambdaFunctionName
+        alias: Alias
+        currentversion: CurrentVersion
+        targetversion: $LATEST
+#hooks:
+#  - AfterAllowTraffic: "LambdaFunctionToValidateAfterAllowingProductionTraffic"
