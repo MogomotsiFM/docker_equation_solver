@@ -1,3 +1,4 @@
+import json
 import sys
 import equation_solver
 
@@ -24,7 +25,7 @@ def handler(event, context):
 
         return {
             "statusCode": 200,
-            "body": steps,
+            "body": json.dumps(steps),
             "headers": {
                 "Content-Type": "text/html"
             },
