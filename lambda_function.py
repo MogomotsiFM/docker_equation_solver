@@ -16,7 +16,7 @@ def handler(event, context):
             "statusCode": 200,
             "body": json.dumps(steps),
             "headers": {
-                "Content-Type": "text/html"
+                "Content-Type": "application/json"
             },
             "isBase64Encoded": False
         }
@@ -26,7 +26,7 @@ def handler(event, context):
             "body": "Equation: " + q + "\n\n" + str(e),
             "isBase64Encoded": False,
             "headers": {
-                "Content-Type": "text/html"
+                "Content-Type": "application/json"
             }
         }
 
