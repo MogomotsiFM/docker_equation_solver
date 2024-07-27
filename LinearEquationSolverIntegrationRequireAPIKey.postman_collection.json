@@ -18,7 +18,7 @@
 							"\r",
 							"    const target = JSON.parse( pm.response.text() );\r",
 							"\r",
-							"    pm.expect(target).to.include.ordered.members(steps);\r",
+							"    pm.expect(target).to.deep.equal(steps);\r",
 							"});"
 						],
 						"type": "text/javascript",
