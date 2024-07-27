@@ -22,11 +22,27 @@ phases:
       - echo Build started on `date` from dir `pwd`
       - newman run LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json -r junit -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
 
+  post_build:
+    commands:
+      - python create_appspec.py $LambdaFunctionName $LambdaFunctionAlias "AppSpec.yaml" $AWS_ACCOUNT_ID $AWS_DEFAULT_REGION $IMAGE_TAG
+
 reports:
   JUnitReports: # CodeBuild will create a report group called "SurefireReports".
     files: #Store all of the files
       - '**/*'
     base-directory: 'newman' # Location of the reports
 
-
+artifacts:
+  files:
+    - AppSpec.yaml
+  name: EquationSolverTestReports
+  discard-paths: no
+  base-directory: "./"
+  secondary-artifacts:
+    ProductionAppSpecFile:
+      files:
+        - AppSpec.yaml
+      name: ProductionAppSpecFile
+      discard-paths: no
+      base-directory: "./"
 

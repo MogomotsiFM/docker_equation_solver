@@ -2,8 +2,10 @@ import yaml
 import sys
 import boto3
 
-#session = boto3.Session(profile_name="Admin", region_name="us-east-1")
-session = boto3.Session(region_name="us-east-1")
+try:
+    session = boto3.Session(profile_name="Admin", region_name="us-east-1")
+except:
+    session = boto3.Session(region_name="us-east-1")
 
 client = session.client("lambda")
 
@@ -21,10 +23,14 @@ AWS_ACCOUNT_ID = sys.argv[4]
 AWS_DEFAULT_REGION = sys.argv[5]
 IMAGE_TAG = sys.argv[6]
 
+# We use the seventh parameter to differentiate creating an appspec for 
+# integration tests deployment purposes and one for production purposes.
 imageUri = f"{AWS_ACCOUNT_ID}.dkr.ecr.{AWS_DEFAULT_REGION}.amazonaws.com/equation_solver:{IMAGE_TAG}"
-target = client.update_function_code(FunctionName=function_name,
-                               ImageUri=imageUri,
-                               Publish=True)
+target = client.update_function_code(
+    FunctionName=function_name,
+    ImageUri=imageUri,
+    Publish=True
+)
 
 properties = app["resources"][0]["LambdaFunctionLogicalId"]["properties"]
 
@@ -32,7 +38,9 @@ properties["name"] = function_name
 properties["alias"] = function_alias
 
 properties["currentversion"] = int( response["FunctionVersion"] )
+
 properties["targetversion"] = int( target["Version"] )
+
 
 with open(output_file, "w") as file:    
     yaml.dump(app, file)
