@@ -1,0 +1,32 @@
+version: 0.2
+
+env:
+  parameter-store:
+    api_key: "/portfolio/CICD/integration_tests_APIGateway_API_key"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16
+    commands: #https://learning.getpostman.com/docs/postman/collection-runs/command-line-integration-with-newman/
+      - npm install -g newman
+  
+  pre_build:
+    commands:
+      # Add the API key to the Postman collections template
+      - sed -i "s/api_gateway_api_key/${api_key}/" LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json
+      
+  build:
+    on-failure: ABORT
+    commands:
+      - echo Build started on `date` from dir `pwd`
+      - newman run LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json -r junit -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
+
+reports:
+  JUnitReports: # CodeBuild will create a report group called "SurefireReports".
+    files: #Store all of the files
+      - '**/*'
+    base-directory: 'newman' # Location of the reports
+
+
+
