@@ -24,7 +24,7 @@ AWS_DEFAULT_REGION = sys.argv[5]
 
 # We use the seventh parameter to differentiate creating an appspec for 
 # integration tests deployment purposes and one for production purposes.
-imageUri = f"{AWS_ACCOUNT_ID}.dkr.ecr.{AWS_DEFAULT_REGION}.amazonaws.com/equation_solver:$LATEST"
+imageUri = f"{AWS_ACCOUNT_ID}.dkr.ecr.{AWS_DEFAULT_REGION}.amazonaws.com/equation_solver:latest"
 target = client.update_function_code(
     FunctionName=function_name,
     ImageUri=imageUri,
