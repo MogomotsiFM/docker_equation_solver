@@ -21,7 +21,6 @@ phases:
       #- sed -i "s/api_gateway_api_key/${api_key}/"  
       #    LinearEquationSolverIntegrationRequireAPIKey.postman_collection_template.json
       - python configure_postman_collection.py $ApiGatewayInvokeUrl $LambdaFunctionAlias $api_key
-      - ls 
           
   build:
     on-failure: ABORT
@@ -32,6 +31,8 @@ phases:
           -r junit,cli
           --delay-request 10
           -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
+      
+      - ls 
 
   post_build:
     commands:
