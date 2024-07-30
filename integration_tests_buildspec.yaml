@@ -65,7 +65,7 @@ artifacts:
       base-directory: "./"
     NewmanIntegrationTestsReport:
       files:
-        - 
+        - newman*
       name: NewmanIntegrationTestsReport
       discard-paths: no
       base-directory: "./newman"
