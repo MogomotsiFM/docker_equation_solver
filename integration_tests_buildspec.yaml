@@ -45,7 +45,7 @@ phases:
 
 
 reports:
-  IntegrationTestReport: # CodeBuild will create a report group called "SurefireReports".
+  JUnitReports: # CodeBuild will create a report group called "SurefireReports".
     files: #Store all of the files
       - integration_tests_report.xml
     base-directory: 'newman' # Location of the reports
