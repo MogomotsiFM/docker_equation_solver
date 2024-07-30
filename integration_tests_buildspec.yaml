@@ -25,7 +25,7 @@ phases:
       - echo Build started on `date` from dir `pwd`
       - newman run 
           LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json 
-          -r junit 
+          -r junit,cli
           -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
 
   post_build:
@@ -55,4 +55,10 @@ artifacts:
       name: ProductionAppSpecFile
       discard-paths: no
       base-directory: "./"
+    NewmanIntegrationTestsReport:
+      files:
+        - 
+      name: NewmanIntegrationTestsReport
+      discard-paths: no
+      base-directory: "/newman"
 
