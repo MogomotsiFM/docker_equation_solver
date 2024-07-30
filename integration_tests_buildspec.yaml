@@ -1,6 +1,10 @@
 version: 0.2
 
 env:
+  variables:
+    ApiGatewayInvokeUrl: " "
+    LambdaFunctionName: " "
+    LambdaFunctionAlias: " "
   parameter-store:
     api_key: "/portfolio/CICD/integration_tests_APIGateway_API_key"
 
