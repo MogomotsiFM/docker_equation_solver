@@ -30,7 +30,7 @@ phases:
       - newman run 
           LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json 
           -r junit,cli
-          --reporter-junit-export
+          --reporter-junit-export integration_tests_report.xml
           --delay-request 10
           -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
 
@@ -47,7 +47,7 @@ phases:
 reports:
   JUnitReports: # CodeBuild will create a report group called "SurefireReports".
     files: #Store all of the files
-      - '**/*'
+      - integration_tests_report.xml
     base-directory: 'newman' # Location of the reports
 
 artifacts:
@@ -65,7 +65,7 @@ artifacts:
       base-directory: "./"
     NewmanIntegrationTestsReport:
       files:
-        - newman*
+        - integration_tests_report.xml
       name: NewmanIntegrationTestsReport
       discard-paths: no
       base-directory: "./newman"
