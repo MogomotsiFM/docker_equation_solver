@@ -29,7 +29,7 @@ phases:
       - newman run 
           LinearEquationSolverIntegrationRequireAPIKey.postman_collection.json 
           -r junit,cli
-          --reporter-junit-export
+          --reporter-junit-export xml-file-reports
           --delay-request 10
           -d $CODEBUILD_SRC_DIR_EqnSolverSourceCode/integration_tests/TestCases.json
 
