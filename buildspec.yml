@@ -41,6 +41,13 @@ phases:
         $AWS_DEFAULT_REGION
 
 
+reports:
+  UnitTests:
+    files: #Store all of the files
+      - "**/*"
+    base-directory: 'reports' # Location of the reports
+
+
 artifacts:
   files:
     - AppSpec.yaml
