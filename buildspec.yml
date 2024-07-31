@@ -41,13 +41,19 @@ phases:
         $AWS_DEFAULT_REGION
 
 
+reports:
+  UnitTests:
+    files: #Store all of the files
+      - "**/*"
+    base-directory: 'reports' # Location of the reports
+
+
 artifacts:
   files:
     - AppSpec.yaml
   name: EquationSolverTestReports
   discard-paths: no
   base-directory: "./"
-  #s3-prefix: portfolio-cloudformation-templates/TestReports
   secondary-artifacts:
     AppSpecFile:
       files:
@@ -55,12 +61,4 @@ artifacts:
       name: AppSpecFile
       discard-paths: no
       base-directory: "./"
-    TestReports:
-      files:
-        - code_coverage.zip
-        - unit_tests.xml
-      name: TestReports
-      discard-paths: no
-      base-directory: "./reports"
-
 
