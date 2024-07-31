@@ -54,7 +54,7 @@ artifacts:
   name: EquationSolverTestReports
   discard-paths: no
   base-directory: "./"
-  s3-prefix: portfolio-cloudformation-templates/TestReports
+  #s3-prefix: portfolio-cloudformation-templates/TestReports
   secondary-artifacts:
     AppSpecFile:
       files:
