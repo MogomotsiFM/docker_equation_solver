@@ -66,10 +66,4 @@ artifacts:
       name: ProductionAppSpecFile
       discard-paths: no
       base-directory: "./"
-    NewmanIntegrationTestsReport:
-      files:
-        - integration_tests_report.xml
-      name: NewmanIntegrationTestsReport
-      discard-paths: no
-      base-directory: "./newman"
-
+    

@@ -62,12 +62,4 @@ artifacts:
       name: AppSpecFile
       discard-paths: no
       base-directory: "./"
-    TestReports:
-      files:
-        - code_coverage.zip
-        - unit_tests.xml
-      name: TestReports
-      discard-paths: no
-      base-directory: "./reports"
-
 
