@@ -4,12 +4,12 @@ import equation_solver
 def handler(event, context):
     print(event)
 
-    # Only the equation should be in the body
-    q = event["body"]
-    
-    print(f"Question: {q}")
-
     try:
+        # Only the equation should be in the body
+        q = event["body"]
+        
+        print(f"Question: {q}")
+
         _, steps = equation_solver.solve(q)
 
         return {
