@@ -16,7 +16,9 @@ def handler(event, context):
             "statusCode": 200,
             "body": json.dumps(steps),
             "headers": {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Origin": "*", # Required for CORS support to work
+                "Access-Control-Allow-Credentials": True
             },
             "isBase64Encoded": False
         }
